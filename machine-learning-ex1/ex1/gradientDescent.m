@@ -15,16 +15,15 @@ for iter = 1:num_iters
     %
     % Hint: While debugging, it can be useful to print out the values
     %       of the cost function (computeCost) and gradient here.
-    %
-
-
-
-
-
-
-
+    % m = no of training examples
+    % n = no of features
+    % dimension(X) = m * (n+1)
+    h = X * theta;  % dimension(h) = (m * (n + 1)) * ((n+1) * 1) = m * 1
+    errors_vector = h - y;  % dimension(error_vector) = m * 1
+    gradient = (alpha * (X' * errors_vector)) / m;
+    % the simultaneous update
+    theta = theta - gradient;
     % ============================================================
-
     % Save the cost J in every iteration    
     J_history(iter) = computeCost(X, y, theta);
 
