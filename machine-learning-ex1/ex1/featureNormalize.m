@@ -7,7 +7,9 @@ function [X_norm, mu, sigma] = featureNormalize(X)
 
 % You need to set these values correctly
 X_norm = X;
-mu = zeros(1, size(X, 2));
+% mean vector
+mu = zeros(1, size(X, 2)); 
+% std vector
 sigma = zeros(1, size(X, 2));
 
 % ====================== YOUR CODE HERE ======================
@@ -25,15 +27,14 @@ sigma = zeros(1, size(X, 2));
 %
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
+mu = mean(X);
+mean_matrix = ones(size(X, 1), 1) * mu;
 
+sigma = std(X);
+std_matrix = ones(size(X, 1), 1) * sigma;
 
-
-
-
-
-
-
+X_norm = X_norm - mean_matrix;
+X_norm = X_norm ./ std_matrix;
 
 % ============================================================
-
 end
