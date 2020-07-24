@@ -107,6 +107,7 @@ fprintf('Expected theta (approx):\n');
 fprintf(' -25.161\n 0.206\n 0.201\n');
 
 % Plot Boundary
+% In file plotDecisionBoundary.m
 plotDecisionBoundary(theta, X, y);
 
 % Put some labels 
@@ -142,6 +143,7 @@ fprintf(['For a student with scores 45 and 85, we predict an admission ' ...
 fprintf('Expected value: 0.775 +/- 0.002\n\n');
 
 % Compute accuracy on our training set
+% In file predict.m
 p = predict(theta, X);
 
 fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
