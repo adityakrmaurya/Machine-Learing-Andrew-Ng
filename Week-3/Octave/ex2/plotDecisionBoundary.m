@@ -10,6 +10,7 @@ function plotDecisionBoundary(theta, X, y)
 
 % Plot Data
 plotData(X(:,2:3), y);
+legend off;
 hold on
 
 if size(X, 2) <= 3
