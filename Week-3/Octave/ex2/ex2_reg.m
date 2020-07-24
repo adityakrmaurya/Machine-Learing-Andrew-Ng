@@ -55,6 +55,7 @@ hold off;
 
 % Note that mapFeature also adds a column of ones for us, so the intercept
 % term is handled
+% In mapFeature.m
 X = mapFeature(X(:,1), X(:,2));
 
 % Initialize fitting parameters
@@ -65,6 +66,7 @@ lambda = 1;
 
 % Compute and display initial cost and gradient for regularized logistic
 % regression
+% In costFunctionReg.m
 [cost, grad] = costFunctionReg(initial_theta, X, y, lambda);
 
 fprintf('Cost at initial theta (zeros): %f\n', cost);
