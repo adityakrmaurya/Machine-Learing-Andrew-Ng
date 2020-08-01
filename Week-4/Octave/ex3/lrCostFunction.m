@@ -35,10 +35,13 @@ grad = zeros(size(theta));
 %           temp(1) = 0;   % because we don't add anything for j = 0  
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
+
 J = ((-y' * log(sigmoid(X*theta)) - (1 - y') * log(1 - sigmoid(X*theta))) / m )...
-    + ((theta([2:size(theta)],:)' * theta([2:size(theta)],:)) * lambda) / (2 * m);
+ + ((theta([2:size(theta)],:)' * theta([2:size(theta)],:)) * lambda) / (2 * m);
+
 % excluding the first value of theta                                            
 grad = ((X' * (sigmoid(X*theta) - y)) + [0; theta([2:size(theta)],:)] * lambda) / m;
+
 % =============================================================
 
 grad = grad(:);
