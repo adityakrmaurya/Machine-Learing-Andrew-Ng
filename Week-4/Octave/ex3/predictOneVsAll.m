@@ -29,8 +29,8 @@ X = [ones(m, 1) X];
 %       are in rows, then, you can use max(A, [], 2) to obtain the max 
 %       for each row.
 %       
-predict = sigmoid(X * all_theta');
-[~, p] = max(predict, [], 2);
+predict = sigmoid(X * all_theta');  % size(predict)  5000 10
+[~, p] = max(predict, [], 2);  % position of max element in the matrix
 % =========================================================================
 
 

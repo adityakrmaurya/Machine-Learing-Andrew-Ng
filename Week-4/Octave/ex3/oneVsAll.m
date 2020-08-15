@@ -44,7 +44,10 @@ X = [ones(m, 1) X];
 % 
 %     % Run fmincg to obtain the optimal theta
 %     % This function will return theta and the cost 
-%     
+%
+% code should return all the classifier parameters
+% in a matrix Θ ∈ R K×(N +1) , where each row of Θ corresponds to the learned
+% logistic regression parameters for one class.
 for c = 1:num_labels
     all_theta(c,:) = fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), ...
           initial_theta, options);
