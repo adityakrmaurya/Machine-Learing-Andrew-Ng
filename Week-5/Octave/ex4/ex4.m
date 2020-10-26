@@ -144,7 +144,7 @@ initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 fprintf('\nChecking Backpropagation... \n');
 
 %  Check gradients by running checkNNGradients
-% checkNNGradients;
+checkNNGradients(0);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;

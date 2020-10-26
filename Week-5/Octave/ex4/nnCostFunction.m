@@ -13,23 +13,18 @@ function [J grad] = nnCostFunction(nn_params, ...
 %   The returned parameter grad should be a "unrolled" vector of the
 %   partial derivatives of the neural network.
 %
-
 % Reshape nn_params back into the parameters Theta1 and Theta2, the weight matrices
 % for our 2 layer neural network
 Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
                  hidden_layer_size, (input_layer_size + 1));
-
 Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
                  num_labels, (hidden_layer_size + 1));
-
 % Number of Training Examples 
 m = size(X, 1);
-         
 % You need to return the following variables correctly 
 J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
-
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the code by working through the
 %               following parts.
@@ -61,6 +56,8 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+delta2 = zeros(size(Theta2));
+delta1 = zeros(size(Theta1));
 for i = 1 : m
 % For input layer 
   a1 = [1; X(i, :)'];
@@ -70,25 +67,26 @@ for i = 1 : m
   z3 = Theta2 * a2;
   a3  = sigmoid(z3);
 % Summation of cost function over all the training example  
-  J += (eq(y(i), [1:10]) * log(a3) + (1 - eq(y(i), [1:10])) * log(1 - a3))...
-      / (-m);
+  J += (eq(y(i), [1:size(Theta2, 1)]) * log(a3) +...
+    (1 - eq(y(i), [1:size(Theta2, 1)])) * log(1 - a3))/ (-m);
+  delta_3 = a3 - eq(y(i), [1:size(Theta2, 1)])';
+  delta_2 = (Theta2' * delta_3)(2:end) .* sigmoidGradient(z2); 
+  delta2 += delta_3 * (a2)'; 
+  delta1 += delta_2 * (a1)';
 endfor
-
+Theta1_grad(:, 1) = delta1(:, 1) / m;
+Theta1_grad(:, 2:size(Theta1_grad, 2)) = ...
+  (delta1(:, 2:size(delta1, 2)) + (lambda * Theta1(:, 2:size(Theta1, 2)))) / m;
+Theta2_grad(:, 1) = delta2(:, 1) / m;
+Theta2_grad(:, 2:size(Theta2_grad, 2)) = ...
+  (delta2(:, 2:size(delta2, 2)) + (lambda * Theta2(:, 2:size(Theta2, 2)))) / m;
 % Cost with regularisation
 % Taking from col2 to end because col1 contains weights for bias unit
 r = ((sum(sum(Theta1(:, 2:size(Theta1, 2)) .^ 2))...
     + sum(sum(Theta2(:, 2:size(Theta2, 2)) .^ 2))) * lambda) / (2 * m);
 J += r;
-
-
-
-
 % -------------------------------------------------------------
-
 % =========================================================================
-
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
-
 end
